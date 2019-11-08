@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-11-06 21:55:14
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-11-08 23:36:34
+ * @LastEditTime: 2019-11-08 23:38:35
  */
 /*
  * 3D音乐播放器
@@ -44,4 +44,9 @@ Config.prototype = {
         render.setSize(WIDTH, HEIGHT); // 设置渲染器的尺寸
         __that__.playerMainBody.appendChild(render.domElement); //将渲染器添加到播放器主体里
     }
+}
+
+window.onload = function () {
+    let config = new Config();
+    config.init();
 }
