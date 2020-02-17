@@ -108,6 +108,26 @@ Config.prototype = {
       shininess: 20,
       reflectivity: 5.5
     })
+    
+    //将单个柱子和单个盖子组合为一个模型
+    for (let index = COLUMNNUMBER - 1; index >= 0; index--) {
+      //柱子合并
+      let column = new THREE.Mesh(columnShape, columnMaterial);
+      column.position.x = -45 + (PWIDTH + DISTANCE) * index;
+      column.position.y = -1;
+      column.position.z = 0.5;
+      column.castShadow = true;
+      scene.add(column); //柱子添加到场景中
+
+      //盖子合并
+      let cover = new THREE.Mesh(coverShape, coverMaterial);
+      cover.position.x = -45 + (PWIDTH + DISTANCE) * index;
+      cover.position.y = 0;
+      cover.position.z = 0.5;
+      cover.castShadow = true;
+      scene.add(cover); //盖子添加到场景中
+    }
+
     playerMainBody.appendChild(render.domElement); //将渲染器添加到播放器主体里
     render.render(scene, camera);
     __that__.scene = scene;
