@@ -87,6 +87,17 @@ Config.prototype = {
     plane.position.z = 0;
     plane.receiveShadow = true;
     scene.add(plane);
+    //创建柱子形状
+    let columnShape = new THREE.CubeGeometry(PWIDTH, 1, MTHICKNESS);
+    //设置柱子材质
+    let columnMaterial = new THREE.MeshPhongMaterial({
+      color: 0x01FF00,
+      specular: 0x01FF00,
+      ambient: 0x01FF00,
+      shininess: 20,
+      reflectivity: 5.5
+    });
+
     playerMainBody.appendChild(render.domElement); //将渲染器添加到播放器主体里
     render.render(scene, camera);
     __that__.scene = scene;
