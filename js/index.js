@@ -16,6 +16,16 @@ let Config = function() {
   this.url = ''; // 音乐路径
   this.playInfo = document.getElementById('playInfo'); //播放信息
   this.playerMainBody = document.getElementById('playerMainBody'); //播放器主体
+  this.DISTANCE = 1; //柱子间的间隔（米）
+  this.PWIDTH = 2; //每个柱子的宽度
+  this.MTHICKNESS = 1; //柱子厚度
+  this.COLUMNNUMBER = Math.round(100 / (this.PWIDTH + this.DISTANCE));//柱子数量
+  this.scene; // 场景
+  this.camera; // 相机
+  this.render; // 
+  this.orbitControls; // 轨道控制器
+  this.clock;
+  this.controls;
 }
 
 Config.prototype = {
