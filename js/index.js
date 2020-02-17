@@ -29,7 +29,7 @@ let Config = function() {
 }
 
 Config.prototype = {
-  //初始化操作 准备音频和场景
+  // 初始化操作 准备音频和场景
   init() {
     window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
     // 只有Firefox支持mozAnimationStartTime属性,其他浏览器可以使用Date.now()来替代
@@ -128,8 +128,22 @@ Config.prototype = {
       scene.add(cover); //盖子添加到场景中
     }
 
+    let spotLight = new THREE.SpotLight(0xffffff);
+    let ambientLight = new THREE.AmbientLight(0x0c0c0c);
+    
+    spotLight.position.set(0, 60, 60);
+    scene.add(spotLight)
+    // scene.add(ambientLight)
+
+    let directionalLight = new THREE.DirectionalLight(0xffffff, 0.7);
+    directionalLight.castShadow = true;
+    directionalLight.position.set(0, 10, 10);
+    scene.add(directionalLight);
+
     playerMainBody.appendChild(render.domElement); //将渲染器添加到播放器主体里
+
     render.render(scene, camera);
+
     __that__.scene = scene;
     __that__.render = render;
     __that__.camera = camera;
