@@ -64,7 +64,30 @@ Config.prototype = {
     render.setClearColor(0x212121); // 设置渲染器的透明颜色
     render.shadowMapEnabled = true; //设置在场景中使用阴影贴图
     render.shadowMapAutoUpdate = true; //设置场景中的阴影贴图自动更新
-    __that__.playerMainBody.appendChild(render.domElement); //将渲染器添加到播放器主体里
+
+    // 创建平面几何(plane)
+    planeGeometry = new THREE.PlaneGeometry(500, 500, 32);
+    planeMaterial = new THREE.MeshLambertMaterial({
+      color: 0xcccccc,
+      side: THREE.DoubleSide
+    });
+    planeMaterial = new THREE.MeshPhongMaterial({
+      color: 0x222222,
+      // color: 0x228B22,
+      ambient: 0x555555,
+      specular: 0xdddddd,
+      shininess: 5,
+      reflectivity: 2
+    });
+
+    plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    plane.rotation.x = -0.5 * Math.PI;
+    plane.position.x = 15;
+    plane.position.y = 0;
+    plane.position.z = 0;
+    plane.receiveShadow = true;
+    scene.add(plane);
+    playerMainBody.appendChild(render.domElement); //将渲染器添加到播放器主体里
     render.render(scene, camera);
     __that__.scene = scene;
     __that__.render = render;
