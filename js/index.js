@@ -133,6 +133,9 @@ Config.prototype = {
     __that__.scene = scene;
     __that__.render = render;
     __that__.camera = camera;
+    __that__.clock = clock;
+    __that__.orbitControls = orbitControls;
+
     __that__.initAnimation(scene, render, camera)
   }
 }
