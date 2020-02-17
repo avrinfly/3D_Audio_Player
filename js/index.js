@@ -98,6 +98,16 @@ Config.prototype = {
       reflectivity: 5.5
     });
 
+    //创建白色盖子
+    let coverShape = new THREE.CubeGeometry(PWIDTH, .7, MTHICKNESS);
+    //设置盖子的材质
+    let coverMaterial = new THREE.MeshPhongMaterial({
+      color: 0xFFFFFF,
+      specular: 0xFFFFFF,
+      ambient: 0xFFFFFF,
+      shininess: 20,
+      reflectivity: 5.5
+    })
     playerMainBody.appendChild(render.domElement); //将渲染器添加到播放器主体里
     render.render(scene, camera);
     __that__.scene = scene;
