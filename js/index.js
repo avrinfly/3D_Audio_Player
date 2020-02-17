@@ -36,7 +36,7 @@ Config.prototype = {
     window.cancelAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
     window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext
     // 准备音频
-    //准备场景
+    // 准备场景
     this.__initScene__();
   },
 
@@ -44,17 +44,36 @@ Config.prototype = {
     let __that__ = this;
     WIDTH = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     HEIGHT = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-    DISTANCE = 1; //柱子间的间隔（米）
-    PWIDTH = 2; //每个柱子的宽度 
+    MTHICKNESS = __that__.MTHICKNESS;
+    PWIDTH = __that__.PWIDTH;
+    DISTANCE = __that__.DISTANCE;
+    COLUMNNUMBER = __that__.COLUMNNUMBER;
 
     scene = new THREE.Scene(); //创建场景
     camera = new THREE.PerspectiveCamera(75, WIDTH / HEIGHT, 0.1, 1000); //创建相机
-    scene.add(camera); //将相机添加到场景中
-    render = new THREE.WebGLRenderer();// 创建渲染器
+    // 相机配置
+    camera.position.x = 0;
+    camera.position.y = 10;
+    camera.position.z = 100;
+    camera.lookAt(scene.position);
+
+    render = new THREE.WebGLRenderer({
+      antialias: true
+    });// 创建渲染器
     render.setSize(WIDTH, HEIGHT); // 设置渲染器的尺寸
+    render.setClearColor(0x212121); // 设置渲染器的透明颜色
+    render.shadowMapEnabled = true; //设置在场景中使用阴影贴图
+    render.shadowMapAutoUpdate = true; //设置场景中的阴影贴图自动更新
     __that__.playerMainBody.appendChild(render.domElement); //将渲染器添加到播放器主体里
+    render.render(scene, camera);
+    __that__.scene = scene;
+    __that__.render = render;
+    __that__.camera = camera;
+    __that__.initAnimation(scene, render, camera)
   }
 }
+
+
 
 window.onload = function () {
   let config = new Config();
