@@ -12,7 +12,7 @@
 > three.js
 > webGL
 
-a 3d audio player built with three.js
+A 3d audio player built with three.js
 
 ## 步骤：
 1. config配置文件
@@ -21,7 +21,7 @@ a 3d audio player built with three.js
 4. 添加播放器主体的柱子和盖子
 5. 实现一个柱子
 6. 实现整个播放器的柱子
-7. 实现柱子上的白色盖子
+7. 添加柱子上的白色盖子
 8. 添加光源（定向光、聚光灯）
-8. 添加plane
+8. 添加plane(平面)
 9. 添加轨道控制器
