@@ -87,6 +87,15 @@ Config.prototype = {
     plane.position.z = 0;
     plane.receiveShadow = true;
     scene.add(plane);
+
+    // 添加轨道控制器
+    orbitControls = new THREE.OrbitControls(camera);
+    orbitControls.minDistance = 50;
+    orbitControls.maxDistance = 200;
+    orbitControls.maxPolarAngle = 1.5;
+    orbitControls.noPan = true;
+    clock = new THREE.Clock();
+
     //创建柱子形状
     let columnShape = new THREE.CubeGeometry(PWIDTH, 1, MTHICKNESS);
     //设置柱子材质
@@ -151,6 +160,22 @@ Config.prototype = {
     __that__.orbitControls = orbitControls;
 
     __that__.initAnimation(scene, render, camera)
+    // __that__.controls
+  },
+  initAnimation(scene, render, camera, analyser) {
+    // 轨道控制器
+    let __that__ = this;
+    COLUMNNUMBER = __that__.COLUMNNUMBER;
+    clock = __that__.clock;
+    controls = __that__.controls;
+    orbitControls = __that__.orbitControls;
+    let renderAnimation = () => {
+      let delta = clock.getDelta();
+      orbitControls.update(delta);
+      render.render(scene, camera);
+      __that__.animationId = requestAnimationFrame(renderAnimation);
+    };
+    __that__.animationId = requestAnimationFrame(renderAnimation);
   }
 }
 
