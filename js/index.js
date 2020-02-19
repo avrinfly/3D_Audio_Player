@@ -143,8 +143,8 @@ Config.prototype = {
     let ambientLight = new THREE.AmbientLight(0x0c0c0c);
     
     spotLight.position.set(0, 60, 60);
-    scene.add(spotLight)
-    // scene.add(ambientLight)
+    scene.add(spotLight) // 添加到场景中
+    scene.add(ambientLight) // 添加到场景中
 
     // 定向光
     let directionalLight = new THREE.DirectionalLight(0xffffff, 0.7);
