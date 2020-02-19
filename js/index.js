@@ -22,7 +22,7 @@ let Config = function() {
   this.COLUMNNUMBER = Math.round(100 / (this.PWIDTH + this.DISTANCE));//柱子数量
   this.scene; // 场景
   this.camera; // 相机
-  this.render; // 
+  this.render; // 渲染器
   this.orbitControls; // 轨道控制器
   this.clock;
   this.controls;
@@ -65,7 +65,7 @@ Config.prototype = {
     render.shadowMapEnabled = true; //设置在场景中使用阴影贴图
     render.shadowMapAutoUpdate = true; //设置场景中的阴影贴图自动更新
 
-    // 创建平面几何(plane)
+    // 创建平面几何(plane) --> 地面
     planeGeometry = new THREE.PlaneGeometry(500, 500, 32);
     planeMaterial = new THREE.MeshLambertMaterial({
       color: 0xcccccc,
@@ -137,13 +137,16 @@ Config.prototype = {
       scene.add(cover); //盖子添加到场景中
     }
 
+    // 点光源
     let spotLight = new THREE.SpotLight(0xffffff);
+    // 软白光
     let ambientLight = new THREE.AmbientLight(0x0c0c0c);
     
     spotLight.position.set(0, 60, 60);
     scene.add(spotLight)
     // scene.add(ambientLight)
 
+    // 定向光
     let directionalLight = new THREE.DirectionalLight(0xffffff, 0.7);
     directionalLight.castShadow = true;
     directionalLight.position.set(0, 10, 10);
@@ -159,10 +162,11 @@ Config.prototype = {
     __that__.clock = clock;
     __that__.orbitControls = orbitControls;
 
-    __that__.initAnimation(scene, render, camera)
-    // __that__.controls
+    // 配置轨道控制器
+    __that__.__initAnimation(scene, render, camera)
   },
-  initAnimation(scene, render, camera, analyser) {
+
+  __initAnimation(scene, render, camera, analyser) {
     // 轨道控制器
     let __that__ = this;
     COLUMNNUMBER = __that__.COLUMNNUMBER;
@@ -170,6 +174,7 @@ Config.prototype = {
     controls = __that__.controls;
     orbitControls = __that__.orbitControls;
     let renderAnimation = () => {
+      // 配置轨道控制器
       let delta = clock.getDelta();
       orbitControls.update(delta);
       render.render(scene, camera);
