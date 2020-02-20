@@ -16,6 +16,7 @@ let Config = function() {
   this.url = ''; // 音乐路径
   this.playInfo = document.getElementById('playInfo'); //播放信息
   this.playerMainBody = document.getElementById('playerMainBody'); //播放器主体
+  this.controlPanel = document.getElementById('controlPanel'); // 播放器控制板
   this.DISTANCE = 1; //柱子间的间隔（米）
   this.PWIDTH = 2; //每个柱子的宽度
   this.MTHICKNESS = 1; //柱子厚度
@@ -38,6 +39,10 @@ Config.prototype = {
     // 准备音频
     // 准备场景
     this.__initScene__();
+    // 添加轨道控制器
+    // this.__control__()
+    // 播放器控制板动画效果添加
+    this.__controlAnimation();
   },
 
   __initScene__() {
@@ -181,6 +186,23 @@ Config.prototype = {
       __that__.animationId = requestAnimationFrame(renderAnimation);
     };
     __that__.animationId = requestAnimationFrame(renderAnimation);
+  },
+
+  __controlAnimation() {
+    let __that__ = this;
+    // 播放器控制板动画效果
+    let panel = document.getElementById('action');
+    panel.onclick = () => {
+      let left = __that__.controlPanel.style.left;
+      if (left === '0px' || left === '') {
+        __that__.controlPanel.style.left = '-210px';
+        panel.textContent = '>>';
+      }
+      else {
+        __that__.controlPanel.style.left = '0px';
+        panel.textContent = '<<';
+      }
+    }
   }
 }
 
