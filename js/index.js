@@ -208,7 +208,7 @@ Config.prototype = {
 
 
 
-window.onload = function () {
+window.onload = () => {
   let config = new Config();
   config.init();
 }
