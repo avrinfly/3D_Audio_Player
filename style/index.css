@@ -4,6 +4,48 @@ body {
   overflow: hidden;
 }
 
-#playerMainBody {
+#core {
+  /* position: relative; */
+}
+
+#playInfo {
+  position: absolute;
+  color: #fff;
+}
+
+#controlPanel {
+  width: 200px;
+  position: absolute;
+  background: rgba(39, 40, 34, .8);
+  top: 75px;
+  left: -1px;
+  box-shadow: 0 0 100px #555;
+  color: #fff;
+  padding: 10px 20px 10px 10px;
+  z-index: 100;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+}
+
+#playDefault {
+  color: red;
+  font-weight: bold;
+}
+
+small a {
+  color: yellow;
+}
+
+#action {
+  width: 20px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #111;
   display: flex;
+  align-items: center;
+  cursor: pointer;
 }
