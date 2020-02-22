@@ -49,3 +49,8 @@ small a {
   align-items: center;
   cursor: pointer;
 }
+
+#action:hover {
+  color: #ddd;
+  background: #333;
+}
