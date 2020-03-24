@@ -11,6 +11,7 @@ body {
 #playInfo {
   position: absolute;
   color: #fff;
+  margin-left: 10px;
 }
 
 #controlPanel {
@@ -34,8 +35,16 @@ body {
   font-weight: bold;
 }
 
+#playDefault:hover {
+  color: yellow;
+}
+
 small a {
   color: yellow;
+}
+
+small a:hover {
+  color: green;
 }
 
 #action {
