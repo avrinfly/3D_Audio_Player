@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-11-06 21:55:14
  * @LastEditors: hetengfei
- * @LastEditTime: 2019-11-08 23:38:35
+ * @LastEditTime: 2020-03-24 21:56:34
  */
 /*
  * 3D音乐播放器
@@ -60,6 +60,7 @@ Config.prototype = {
   },
 
   __initScene__() {
+    // 场景初始化
     let __that__ = this;
     WIDTH = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     HEIGHT = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
@@ -190,7 +191,6 @@ Config.prototype = {
     let __that__ = this;
     COLUMNNUMBER = __that__.COLUMNNUMBER;
     clock = __that__.clock;
-    controls = __that__.controls;
     orbitControls = __that__.orbitControls;
     let renderAnimation = () => {
       // 配置轨道控制器
@@ -203,6 +203,7 @@ Config.prototype = {
   },
 
   __controlAnimation() {
+    // 播放器控制板动画效果
     let __that__ = this;
     // 播放器控制板动画效果
     let panel = document.getElementById('action');
