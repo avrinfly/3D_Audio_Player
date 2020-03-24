@@ -223,8 +223,8 @@ Config.prototype = {
 
   __musicPlay() {
     let __that__ = this,
-      pageContent = document.body,
-      openBtn = __that__.openFile;
+    pageContent = document.body,
+    openBtn = __that__.openFile;
     // 音频文件上传
     openBtn.onchange = () => {
       if (!__that__.audioContext) {
