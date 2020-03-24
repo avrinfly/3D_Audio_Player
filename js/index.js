@@ -13,10 +13,15 @@
 */
 let Config = function() {
   this.appName = 'HTML 3D Audio Spectrum Visualizer'; // 播放信息
-  this.url = ''; // 音乐路径
+  this.url = './material/千百顺 - 很任性.flac'; // 音乐路径
   this.playInfo = document.getElementById('playInfo'); //播放信息
   this.playerMainBody = document.getElementById('playerMainBody'); //播放器主体
   this.controlPanel = document.getElementById('controlPanel'); // 播放器控制板
+  this.playDefault = document.getElementById('playDefault'); // 打开默认音频文件
+  this.openFile = document.getElementById('openFile'); // 打开文件按钮
+  this.files; // 音频文件
+  this.filesName = '';// 当前播放音频文件名
+  this.audioContext; // 播放器
   this.DISTANCE = 1; //柱子间的间隔（米）
   this.PWIDTH = 2; //每个柱子的宽度
   this.MTHICKNESS = 1; //柱子厚度
@@ -27,6 +32,9 @@ let Config = function() {
   this.orbitControls; // 轨道控制器
   this.clock;
   this.controls;
+  this.loading = false; // 检测是否有正在加载中的文件，如果有，则停止加载新的文件
+  this.newFileForce = false; // 被新打开文件覆盖或者当前音频文件播放结束
+  this.source; // 音频文件
 }
 
 Config.prototype = {
@@ -37,6 +45,12 @@ Config.prototype = {
     window.cancelAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
     window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext
     // 准备音频
+    try {
+      this.audioContext = new AudioContext();
+    }
+    catch (e) {
+      this.playInfo.textContent = '暂不支持音频格式的文件';
+    }
     // 准备场景
     this.__initScene__();
     // 添加轨道控制器
