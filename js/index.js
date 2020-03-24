@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-11-06 21:55:14
  * @LastEditors: hetengfei
- * @LastEditTime: 2020-03-24 21:56:34
+ * @LastEditTime: 2020-03-25 00:04:01
  */
 /*
  * 3D音乐播放器
@@ -51,6 +51,8 @@ Config.prototype = {
     catch (e) {
       this.playInfo.textContent = '暂不支持音频格式的文件';
     }
+    //音乐播放功能
+    this.__musicPlay();
     // 准备场景
     this.__initScene__();
     // 添加轨道控制器
@@ -205,7 +207,6 @@ Config.prototype = {
   __controlAnimation() {
     // 播放器控制板动画效果
     let __that__ = this;
-    // 播放器控制板动画效果
     let panel = document.getElementById('action');
     panel.onclick = () => {
       let left = __that__.controlPanel.style.left;
@@ -218,12 +219,39 @@ Config.prototype = {
         panel.textContent = '<<';
       }
     }
-  }
-}
+  },
 
+  __musicPlay() {
+    let __that__ = this,
+      pageContent = document.body,
+      openBtn = __that__.openFile;
+    // 音频文件上传
+    openBtn.onchange = () => {
+      if (!__that__.audioContext) {
+        return;
+      }
+      // 当有文件正在上传时
+      if (openBtn.files.length !== 0) {
+        __that__.loading = true;
+        __that__.playInfo.textContent = '音频解码加载中...';
+        console.log('open file', openBtn.files[0]);
+        __that__.files = openBtn.files[0]; // 音频文件
+        __that__.filesName = openBtn.files[0].name; // 文件名
+        console.log(openBtn.files[0].name, __that__.filesName);
+        // 读取文件
+        __that__.__readFile(openBtn.files[0]);
+
+        openBtn.value = ''; // 在上传音频文件后，将上传文件中的内容清空，防止当上传同一音频文件时，onchange事件不触发
+      }
+    }
+  },
+}
 
 
 window.onload = () => {
   let config = new Config();
   config.init();
+  config.playDefault.onclick = () => {
+    config.__musicPlayDefault(config.url);
+  }
 }
