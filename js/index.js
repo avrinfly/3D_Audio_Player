@@ -274,6 +274,98 @@ Config.prototype = {
     }
   },
 
+  __play(file) {
+    // 核心功能->音乐播放功能
+    let __that__ = this;
+    __that__.playInfo.textContent = '音频解码加载中...';
+
+    // __that__.audioContext.decodeAudioData(file, function(buffer) {
+    //   __that__.playInfo.textContent = 'Decode succussfully,start the visualizer';
+    //   let AudioContext = __that__.audioContext,
+    //     audioBufferSouceNode = AudioContext.createBufferSource(),
+    //     analyser = AudioContext.createAnalyser();
+      
+    //   //connect the source to the analyser
+    //   audioBufferSouceNode.connect(analyser);
+    //   //connect the analyser to the destination(the speaker), or we won't hear the sound
+    //   analyser.connect(AudioContext.destination);
+    //   //then assign the buffer to the buffer source node
+    //   audioBufferSouceNode.buffer = buffer;
+      //stop the previous sound if any
+      // if (__that__.source) {
+        // if (this.status != 0) {
+        //   this.forceStop = true;
+        //   this.source.stop(0);
+        // };
+      // }
+      // __that__.source = audioBufferSouceNode;
+      // audioBufferSouceNode.start(0);
+    // }, function(e) {
+    //   alert(e)
+    //   __that__.playInfo.textContent = '!Fail to decode';
+    // });
+
+    
+
+
+    // 异步解码音频文件中的 ArrayBuffer(decodeData)
+    __that__.audioContext.decodeAudioData(file).then(function(decodedData) {
+      // 音频文件解码完成，数据加载完成
+      __that__.playInfo.textContent = '解码成功，开始播放...';
+      // https://developer.mozilla.org/zh-CN/docs/Web/API/AudioContext/createBufferSource
+      let AudioContext = __that__.audioContext,
+        audioBufferSouceNode = AudioContext.createBufferSource(),
+        analyser = AudioContext.createAnalyser();
+      // 将实时分析的音频节点导入到要播放的音频文件中
+      audioBufferSouceNode.connect(analyser);
+      // 要播放的音频文件导入到播放器中，这样我们就能听到声音了(原话->https://developer.mozilla.org/zh-CN/docs/Web/API/AudioContext/createBufferSource)
+      analyser.connect(AudioContext.destination);
+      // 设置播放的音频文件中的缓冲区
+      audioBufferSouceNode.buffer = decodedData;
+
+      if (__that__.source) {
+        if (__that__.source != 0) {
+          this.source.stop(0);
+        }
+      }
+      console.log('>>>>>>>>>>>>>>>>>>',file);
+      this.source = audioBufferSouceNode;
+      audioBufferSouceNode.start(0);
+
+      setTimeout(() => {
+        __that__.playInfo.textContent = '正在播放： ' + __that__.filesName
+      }, 1000);
+
+    },function(err) {
+        console.log(err);
+        __that__.playInfo.textContent = '打开文件失败!';
+    });
+  },
+
+  __musicPlayDefault(file) {
+    // 核心功能->音乐播放功能
+    let __that__ = this;
+    __that__.playInfo.textContent = '解码成功，开始播放...';
+
+    // __that__.source = __that__.audioContext.createBufferSource();
+    // let request = new XMLHttpRequest();
+    // request.open('GET', file, true);
+    // request.responseType = 'arraybuffer';
+    // request.onload = function() {
+    //   let audioData = request.audioData; // 拿到解码前的音频文件
+    //   console.log(audioData)
+    //   __that__.audioContext.decodeAudioData(audioData).then(function (buffer) {
+    //     __that__.source.buffer = buffer;
+    //     __that__.source.connect(__that__.audioContext.destination);
+    //     __that__.source.loop = true; //循环播放
+    //   },
+    //     e => console.log('Error with decoding audio data' + e.err));
+    // }
+    // request.send(null);
+
+    
+  }
+}
 
 window.onload = () => {
   let config = new Config();
