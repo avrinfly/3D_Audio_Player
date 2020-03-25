@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-11-06 21:55:14
  * @LastEditors: hetengfei
- * @LastEditTime: 2020-03-25 00:04:01
+ * @LastEditTime: 2020-03-26 00:00:08
  */
 /*
  * 3D音乐播放器
@@ -35,6 +35,8 @@ let Config = function() {
   this.loading = false; // 检测是否有正在加载中的文件，如果有，则停止加载新的文件
   this.newFileForce = false; // 被新打开文件覆盖或者当前音频文件播放结束
   this.source; // 音频文件
+
+  this.utils
 }
 
 Config.prototype = {
@@ -245,12 +247,38 @@ Config.prototype = {
       }
     }
   },
-}
+
+  __readFile(file) {
+    // 读取文件
+    let __that__ = this,
+      reader = new FileReader(); // new一个FileReader实例
+    console.log(/text+/.test(file.type),file.type);
+    if (!__that__.utils.judgeAudioFormat(file.type)) {
+      // 判断文件类型，是不是text类型
+      alert('请选择正确格式的音频文件');
+    } else {
+      reader.onload = (e) => {
+        console.log('eeeeeeeeeeeee',e);
+        const result = e.target.result;
+        if (!result) {
+          return;
+        }
+        // reader.readAsDataURL(file);
+        __that__.__play(result); // 音乐播放功能
+      }
+      reader.readAsArrayBuffer(file)
+      reader.onerror = (e) => {
+        console.log(e);
+        __that__.playInfo.textContent = '打开音频文件失败!';
+      }
+    }
+  },
 
 
 window.onload = () => {
   let config = new Config();
   config.init();
+  config.utils = window;
   config.playDefault.onclick = () => {
     config.__musicPlayDefault(config.url);
   }
