@@ -346,24 +346,6 @@ Config.prototype = {
     // 核心功能->音乐播放功能
     let __that__ = this;
     __that__.playInfo.textContent = '解码成功，开始播放...';
-
-    // __that__.source = __that__.audioContext.createBufferSource();
-    // let request = new XMLHttpRequest();
-    // request.open('GET', file, true);
-    // request.responseType = 'arraybuffer';
-    // request.onload = function() {
-    //   let audioData = request.audioData; // 拿到解码前的音频文件
-    //   console.log(audioData)
-    //   __that__.audioContext.decodeAudioData(audioData).then(function (buffer) {
-    //     __that__.source.buffer = buffer;
-    //     __that__.source.connect(__that__.audioContext.destination);
-    //     __that__.source.loop = true; //循环播放
-    //   },
-    //     e => console.log('Error with decoding audio data' + e.err));
-    // }
-    // request.send(null);
-
-    
   }
 }
 
