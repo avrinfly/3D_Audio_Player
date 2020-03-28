@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-11-06 21:55:14
  * @LastEditors: hetengfei
- * @LastEditTime: 2020-03-26 00:00:08
+ * @LastEditTime: 2020-03-28 22:36:41
  */
 /*
  * 3D音乐播放器
@@ -278,35 +278,6 @@ Config.prototype = {
     // 核心功能->音乐播放功能
     let __that__ = this;
     __that__.playInfo.textContent = '音频解码加载中...';
-
-    // __that__.audioContext.decodeAudioData(file, function(buffer) {
-    //   __that__.playInfo.textContent = 'Decode succussfully,start the visualizer';
-    //   let AudioContext = __that__.audioContext,
-    //     audioBufferSouceNode = AudioContext.createBufferSource(),
-    //     analyser = AudioContext.createAnalyser();
-      
-    //   //connect the source to the analyser
-    //   audioBufferSouceNode.connect(analyser);
-    //   //connect the analyser to the destination(the speaker), or we won't hear the sound
-    //   analyser.connect(AudioContext.destination);
-    //   //then assign the buffer to the buffer source node
-    //   audioBufferSouceNode.buffer = buffer;
-      //stop the previous sound if any
-      // if (__that__.source) {
-        // if (this.status != 0) {
-        //   this.forceStop = true;
-        //   this.source.stop(0);
-        // };
-      // }
-      // __that__.source = audioBufferSouceNode;
-      // audioBufferSouceNode.start(0);
-    // }, function(e) {
-    //   alert(e)
-    //   __that__.playInfo.textContent = '!Fail to decode';
-    // });
-
-    
-
 
     // 异步解码音频文件中的 ArrayBuffer(decodeData)
     __that__.audioContext.decodeAudioData(file).then(function(decodedData) {
