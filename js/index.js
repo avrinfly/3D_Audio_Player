@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-11-06 21:55:14
  * @LastEditors: hetengfei
- * @LastEditTime: 2020-03-28 22:36:41
+ * @LastEditTime: 2020-03-30 23:25:26
  */
 /*
  * 3D音乐播放器
@@ -36,7 +36,7 @@ let Config = function() {
   this.newFileForce = false; // 被新打开文件覆盖或者当前音频文件播放结束
   this.source; // 音频文件
 
-  this.utils
+  this.utils;
 }
 
 Config.prototype = {
@@ -44,8 +44,8 @@ Config.prototype = {
   init() {
     window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
     // 只有Firefox支持mozAnimationStartTime属性,其他浏览器可以使用Date.now()来替代
-    window.cancelAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
-    window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext
+    window.cancelAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext;
     // 准备音频
     try {
       this.audioContext = new AudioContext();
@@ -167,8 +167,8 @@ Config.prototype = {
     let ambientLight = new THREE.AmbientLight(0x0c0c0c);
     
     spotLight.position.set(0, 60, 60);
-    scene.add(spotLight) // 添加到场景中
-    scene.add(ambientLight) // 添加到场景中
+    scene.add(spotLight); // 添加到场景中
+    scene.add(ambientLight); // 添加到场景中
 
     // 定向光
     let directionalLight = new THREE.DirectionalLight(0xffffff, 0.7);
@@ -187,7 +187,7 @@ Config.prototype = {
     __that__.orbitControls = orbitControls;
 
     // 配置轨道控制器
-    __that__.__initAnimation(scene, render, camera)
+    __that__.__initAnimation(scene, render, camera);
   },
 
   __initAnimation(scene, render, camera, analyser) {
@@ -268,7 +268,7 @@ Config.prototype = {
         // reader.readAsDataURL(file);
         __that__.__play(result); // 音乐播放功能
       }
-      reader.readAsArrayBuffer(file)
+      reader.readAsArrayBuffer(file);
       reader.onerror = (e) => {
         console.log(e);
         __that__.playInfo.textContent = '打开音频文件失败!';
@@ -312,7 +312,7 @@ Config.prototype = {
 
       // 播放成功后 展示正在播放的音频文件名称
       setTimeout(() => {
-        __that__.playInfo.textContent = '正在播放： ' + __that__.filesName
+        __that__.playInfo.textContent = '正在播放： ' + __that__.filesName;
       }, 1000);
 
     }, (err) => {
