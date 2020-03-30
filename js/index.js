@@ -305,6 +305,12 @@ Config.prototype = {
       __that__.source = audioBufferSouceNode;
       audioBufferSouceNode.start(0);
 
+      // 音频文件播放结束 重置播放器状态
+      __that__.source.onended = () => {
+        __that__.playInfo.textContent = 'HTML5 3D音乐播放器';
+      }
+
+      // 播放成功后 展示正在播放的音频文件名称
       setTimeout(() => {
         __that__.playInfo.textContent = '正在播放： ' + __that__.filesName
       }, 1000);
