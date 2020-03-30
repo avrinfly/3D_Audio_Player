@@ -256,6 +256,8 @@ Config.prototype = {
     if (!__that__.utils.judgeAudioFormat(file.type)) {
       // 判断文件类型，是不是text类型
       alert('请选择正确格式的音频文件');
+      // 重置播放器状态
+      __that__.playInfo.textContent = 'HTML5 3D音乐播放器';
     } else {
       reader.onload = (e) => {
         console.log('eeeeeeeeeeeee',e);
