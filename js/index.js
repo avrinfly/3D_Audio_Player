@@ -298,20 +298,21 @@ Config.prototype = {
 
       if (__that__.source) {
         if (__that__.source != 0) {
-          this.source.stop(0);
+          __that__.source.stop(0);
         }
       }
       console.log('>>>>>>>>>>>>>>>>>>',file);
-      this.source = audioBufferSouceNode;
+      __that__.source = audioBufferSouceNode;
       audioBufferSouceNode.start(0);
 
       setTimeout(() => {
         __that__.playInfo.textContent = '正在播放： ' + __that__.filesName
       }, 1000);
 
-    },function(err) {
-        console.log(err);
-        __that__.playInfo.textContent = '打开文件失败!';
+    }, (err) => {
+      // 打开文件的失败callback
+      console.log(err);
+      __that__.playInfo.textContent = '打开文件失败!';
     });
   },
 
