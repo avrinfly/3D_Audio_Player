@@ -337,6 +337,12 @@ Config.prototype = {
       audio.pause();
       audio.currentTime = 0; //音乐从头播放
     }
+
+    audio.onended = () => {
+      console.log('播放结束');
+      __that__.playInfo.textContent = 'HTML5 3D音乐播放器';
+    }
+    
   }
 }
 
