@@ -23,10 +23,10 @@ let Config = function() {
   this.files; // 音频文件
   this.filesName = '';// 当前播放音频文件名
   this.audioContext; // 播放器
-  this.DISTANCE = 1; //柱子间的间隔（米）
-  this.PWIDTH = 2; //每个柱子的宽度
-  this.MTHICKNESS = 1; //柱子厚度
-  this.COLUMNNUMBER = Math.round(100 / (this.PWIDTH + this.DISTANCE));//柱子数量
+  this.DISTANCE = 1; // 柱子间的间隔（米）
+  this.PWIDTH = 2; // 每个柱子的宽度
+  this.MTHICKNESS = 1; // 柱子厚度
+  this.COLUMNNUMBER = Math.round(100 / (this.PWIDTH + this.DISTANCE)); // 柱子数量
   this.scene; // 场景
   this.camera; // 相机
   this.render; // 渲染器
@@ -36,8 +36,7 @@ let Config = function() {
   this.loading = false; // 检测是否有正在加载中的文件，如果有，则停止加载新的文件
   this.newFileForce = false; // 被新打开文件覆盖或者当前音频文件播放结束
   this.source; // 音频文件
-
-  this.utils;
+  this.utils; // 工具函数
 }
 
 Config.prototype = {
@@ -45,8 +44,8 @@ Config.prototype = {
   init() {
     window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
     // 只有Firefox支持mozAnimationStartTime属性,其他浏览器可以使用Date.now()来替代
-    window.cancelAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-    window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext;
+    window.cancelAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
+    window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext
     // 准备音频
     try {
       this.audioContext = new AudioContext();
@@ -242,7 +241,7 @@ Config.prototype = {
         __that__.filesName = openBtn.files[0].name; // 文件名
         console.log(openBtn.files[0].name, __that__.filesName);
         // 读取文件
-        __that__.__readFile(openBtn.files[0]);
+        __that__.__readFile(__that__.files);
 
         openBtn.value = ''; // 在上传音频文件后，将上传文件中的内容清空，防止当上传同一音频文件时，onchange事件不触发
       }
@@ -297,6 +296,7 @@ Config.prototype = {
       // 设置播放的音频文件中的缓冲区
       audioBufferSouceNode.buffer = decodedData;
 
+      // 在每次播放音频文件时，如果上一段音频未结束，则停止播放上一段音频
       if (__that__.source) {
         if (__that__.source != 0) {
           __that__.source.stop(0);
