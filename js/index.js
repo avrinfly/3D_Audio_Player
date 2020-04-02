@@ -19,6 +19,7 @@ let Config = function() {
   this.controlPanel = document.getElementById('controlPanel'); // 播放器控制板
   this.playDefault = document.getElementById('playDefault'); // 打开默认音频文件
   this.openFile = document.getElementById('openFile'); // 打开文件按钮
+  this.audio = document.getElementById('musicDefault'); // 默认音频文件
   this.files; // 音频文件
   this.filesName = '';// 当前播放音频文件名
   this.audioContext; // 播放器
@@ -345,5 +346,6 @@ window.onload = () => {
   config.utils = window;
   config.playDefault.onclick = () => {
     config.__musicPlayDefault(config.url);
-  }
+  };
+  config.audio.pause();
 }
