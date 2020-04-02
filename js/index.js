@@ -322,10 +322,20 @@ Config.prototype = {
     });
   },
 
-  __musicPlayDefault(file) {
-    // 核心功能->音乐播放功能
+  __musicPlayDefault(url) {
     let __that__ = this;
-    __that__.playInfo.textContent = '解码成功，开始播放...';
+    // 播放默认音频文件功能
+    let audio = document.getElementById('musicDefault');
+    audio.src = url;
+    if (audio.paused) {
+      audio.play();
+      setTimeout(() => {
+        __that__.playInfo.textContent = '正在播放： 千百顺 - 很任性.flac';
+      }, 1000);
+    } else {
+      audio.pause();
+      audio.currentTime = 0; //音乐从头播放
+    }
   }
 }
 
