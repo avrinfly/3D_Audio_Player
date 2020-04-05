@@ -13,7 +13,7 @@
 */
 let Config = function() {
   this.appName = 'HTML 3D Audio Spectrum Visualizer'; // 播放信息
-  this.url = './material/千百顺 - 很任性.flac'; // 音乐路径
+  this.url = 'E:/project/Music_Player_Base/material/千百顺 - 很任性.flac'; // 音乐路径
   this.playInfo = document.getElementById('playInfo'); //播放信息
   this.playerMainBody = document.getElementById('playerMainBody'); //播放器主体
   this.controlPanel = document.getElementById('controlPanel'); // 播放器控制板
