@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-11-06 21:55:14
  * @LastEditors: hetengfei
- * @LastEditTime: 2020-03-30 23:25:26
+ * @LastEditTime: 2020-04-11 23:49:56
  */
 /*
  * 3D音乐播放器
@@ -13,7 +13,8 @@
 */
 let Config = function() {
   this.appName = 'HTML 3D Audio Spectrum Visualizer'; // 播放信息
-  this.url = 'E:/project/Music_Player_Base/material/千百顺 - 很任性.flac'; // 音乐路径
+  // this.url = 'E:/project/Music_Player_Base/material/千百顺 - 很任性.flac'; // 音乐路径
+  this.url = 'https://www.flygoing.cn/audio/高梨康治_(たかなし_やすはる)_-_S級魔導士昇格試験.mp3'; // 音乐路径
   this.playInfo = document.getElementById('playInfo'); //播放信息
   this.playerMainBody = document.getElementById('playerMainBody'); //播放器主体
   this.controlPanel = document.getElementById('controlPanel'); // 播放器控制板
