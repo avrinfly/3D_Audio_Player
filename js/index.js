@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-11-06 21:55:14
  * @LastEditors: hetengfei
- * @LastEditTime: 2020-04-11 23:49:56
+ * @LastEditTime: 2020-04-11 23:56:00
  */
 /*
  * 3D音乐播放器
@@ -45,8 +45,8 @@ Config.prototype = {
   init() {
     window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
     // 只有Firefox支持mozAnimationStartTime属性,其他浏览器可以使用Date.now()来替代
-    window.cancelAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
-    window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext
+    window.cancelAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext;
     // 准备音频
     try {
       this.audioContext = new AudioContext();
@@ -59,7 +59,7 @@ Config.prototype = {
     // 准备场景
     this.__initScene__();
     // 添加轨道控制器
-    // this.__control__()
+    // this.__control__();
     // 播放器控制板动画效果添加
     this.__controlAnimation();
   },
@@ -75,7 +75,7 @@ Config.prototype = {
     COLUMNNUMBER = __that__.COLUMNNUMBER;
 
     scene = new THREE.Scene(); //创建场景
-    camera = new THREE.PerspectiveCamera(75, WIDTH / HEIGHT, 0.1, 1000); //创建相机
+    camera = new THREE.PerspectiveCamera(55, WIDTH / HEIGHT, 0.1, 1000); //创建相机
     // 相机配置
     camera.position.x = 0;
     camera.position.y = 10;
@@ -141,7 +141,7 @@ Config.prototype = {
       ambient: 0xFFFFFF,
       shininess: 20,
       reflectivity: 5.5
-    })
+    });
     
     //将单个柱子和单个盖子组合为一个模型
     for (let index = COLUMNNUMBER - 1; index >= 0; index--) {
