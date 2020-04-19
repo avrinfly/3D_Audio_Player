@@ -75,7 +75,7 @@ Config.prototype = {
     COLUMNNUMBER = __that__.COLUMNNUMBER;
 
     scene = new THREE.Scene(); //创建场景
-    camera = new THREE.PerspectiveCamera(55, WIDTH / HEIGHT, 0.1, 1000); //创建相机
+    camera = new THREE.PerspectiveCamera(60, WIDTH / HEIGHT, 0.1, 1000); //创建相机
     // 相机配置
     camera.position.x = 0;
     camera.position.y = 10;
