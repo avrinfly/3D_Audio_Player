@@ -13,8 +13,9 @@
 */
 let Config = function() {
   this.appName = 'HTML 3D Audio Spectrum Visualizer'; // 播放信息
-  // this.url = 'E:/project/Music_Player_Base/material/千百顺 - 很任性.flac'; // 音乐路径
-  this.url = 'https://www.flygoing.cn/audio/高梨康治_(たかなし_やすはる)_-_S級魔導士昇格試験.mp3'; // 音乐路径
+  // this.url = 'E:/project/Music_Player_Base/material/千百顺 - 很任性.flac'; // 音乐路径 -- 不能是相对路径
+  // this.url = 'E:/project/Music_Player_Base/material/高梨康治 (たかなし やすはる) - S級魔導士昇格試験.mp3';
+  this.url = 'https://www.flygoing.cn/audio/高梨康治_(たかなし_やすはる)_-_S級魔導士昇格試験.mp3'
   this.playInfo = document.getElementById('playInfo'); //播放信息
   this.playerMainBody = document.getElementById('playerMainBody'); //播放器主体
   this.controlPanel = document.getElementById('controlPanel'); // 播放器控制板
