@@ -13,8 +13,9 @@
 */
 let Config = function() {
   this.appName = 'HTML 3D Audio Spectrum Visualizer'; // 播放信息
-  // this.url = 'E:/project/Music_Player_Base/material/千百顺 - 很任性.flac'; // 音乐路径
-  this.url = 'https://www.flygoing.cn/audio/高梨康治_(たかなし_やすはる)_-_S級魔導士昇格試験.mp3'; // 音乐路径
+  // this.url = 'E:/project/Music_Player_Base/material/千百顺 - 很任性.flac'; // 音乐路径 -- 不能是相对路径
+  // this.url = 'E:/project/Music_Player_Base/material/高梨康治 (たかなし やすはる) - S級魔導士昇格試験.mp3';
+  this.url = 'https://www.flygoing.cn/audio/高梨康治_(たかなし_やすはる)_-_S級魔導士昇格試験.mp3'
   this.playInfo = document.getElementById('playInfo'); //播放信息
   this.playerMainBody = document.getElementById('playerMainBody'); //播放器主体
   this.controlPanel = document.getElementById('controlPanel'); // 播放器控制板
@@ -75,7 +76,7 @@ Config.prototype = {
     COLUMNNUMBER = __that__.COLUMNNUMBER;
 
     scene = new THREE.Scene(); //创建场景
-    camera = new THREE.PerspectiveCamera(55, WIDTH / HEIGHT, 0.1, 1000); //创建相机
+    camera = new THREE.PerspectiveCamera(60, WIDTH / HEIGHT, 0.1, 1000); //创建相机
     // 相机配置
     camera.position.x = 0;
     camera.position.y = 10;
@@ -151,6 +152,7 @@ Config.prototype = {
       column.position.y = -1;
       column.position.z = 0.5;
       column.castShadow = true;
+      column.name = 'column' + index;
       scene.add(column); //柱子添加到场景中
 
       //盖子合并
@@ -159,6 +161,7 @@ Config.prototype = {
       cover.position.y = 0;
       cover.position.z = 0.5;
       cover.castShadow = true;
+      cover.name = 'cover' + index;
       scene.add(cover); //盖子添加到场景中
     }
 
@@ -197,10 +200,38 @@ Config.prototype = {
     COLUMNNUMBER = __that__.COLUMNNUMBER;
     clock = __that__.clock;
     orbitControls = __that__.orbitControls;
+    controls = __that__.controls;
     let renderAnimation = () => {
       // 配置轨道控制器
       let delta = clock.getDelta();
       orbitControls.update(delta);
+      if (analyser) {
+        // https://developer.mozilla.org/zh-CN/docs/Web/API/AnalyserNode/frequencyBinCount
+        let bufferLength = analyser.frequencyBinCount;
+        // 从分析器获取频谱数据
+        // 为什么是Uint8Array：防止报以下的错误信息：Uncaught TypeError: Failed to execute 'getByteFrequencyData' on 'AnalyserNode': parameter 1 is not of type 'Uint8Array'.at renderAnimation
+        let dataArray = new Uint8Array(bufferLength);
+        // 什么是：https://www.cnblogs.com/jiangxiaobo/p/6016431.html 
+        // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array
+
+        // https://developer.mozilla.org/zh-CN/docs/Web/API/AnalyserNode/getByteFrequencyData
+        // 将当前频率数据复制到传入的Uint8Array（无符号字节数组）中
+        analyser.getByteFrequencyData(dataArray);
+        // console.log(dataArray.length);
+        let step = Math.round(dataArray.length / COLUMNNUMBER); // 将无符号字节数组中的总长度平分至每个柱子
+        for (let index = 0; index < step; index++) {
+          let value = dataArray[index * step] / 4;
+          // 如果标度值小于1，控制台将有警告！ 所以让我们确保它在1以上
+          value = value < 1 ? 1 : value;
+          let meter = scene.getObjectByName('column' + index, true), // 更新柱子高度
+            cap = scene.getObjectByName('cover' + index, true); // 更新盖子高度
+          // 更新每个柱子的高度(柱子跃动效果);
+          meter.scale.y = value;
+          // https://threejs.org/docs/index.html#api/en/core/Geometry 有关geometry的文档
+          //ref1:http://stackoverflow.com/questions/12924883/three-js-webgl-scale-to-fixed-dimensions
+          //ref1:http://stackoverflow.com/questions/15492857/any-way-to-get-a-bounding-box-from-a-three-js-object3d
+        }
+      };
       render.render(scene, camera);
       __that__.animationId = requestAnimationFrame(renderAnimation);
     };
@@ -316,6 +347,8 @@ Config.prototype = {
       setTimeout(() => {
         __that__.playInfo.textContent = '正在播放： ' + __that__.filesName;
       }, 1000);
+
+      __that__.__initAnimation(scene, render, camera, analyser);
 
     }, (err) => {
       // 打开文件的失败callback
