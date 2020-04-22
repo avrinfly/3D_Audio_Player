@@ -4,7 +4,7 @@
  * @Github: https://github.com/avrinfly
  * @Date: 2019-11-06 21:55:14
  * @LastEditors: hetengfei
- * @LastEditTime: 2020-04-11 23:56:00
+ * @LastEditTime: 2020-04-21 00:27:17
  */
 /*
  * 3D音乐播放器
@@ -230,6 +230,14 @@ Config.prototype = {
           // https://threejs.org/docs/index.html#api/en/core/Geometry 有关geometry的文档
           //ref1:http://stackoverflow.com/questions/12924883/three-js-webgl-scale-to-fixed-dimensions
           //ref1:http://stackoverflow.com/questions/15492857/any-way-to-get-a-bounding-box-from-a-three-js-object3d
+          meter.geometry.computeBoundingBox();
+          height = (meter.geometry.boundingBox.max.y - meter.geometry.boundingBox.min.y) * value;
+          // console.log(height);
+          if (height / 2 > cap.position.y) {
+            cap.position.y = (height / 2 - 0.5) > 0 ? (height / 2 - 0.5) : 0.5;
+          } else {
+            cap.position.y -= 0.1;
+          };
         }
       };
       render.render(scene, camera);
