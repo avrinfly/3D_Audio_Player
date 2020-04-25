@@ -158,7 +158,7 @@ Config.prototype = {
       //盖子合并
       let cover = new THREE.Mesh(coverShape, coverMaterial);
       cover.position.x = -45 + (PWIDTH + DISTANCE) * index;
-      cover.position.y = 0;
+      cover.position.y = 0.5;
       cover.position.z = 0.5;
       cover.castShadow = true;
       cover.name = 'cover' + index;
