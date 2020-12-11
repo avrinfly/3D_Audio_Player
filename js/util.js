@@ -7,6 +7,7 @@
         "": false,
         'audio/flac': true,
         'audio/mp3': true,
+        'audio/mpeg': true,
         'text/plain': false
       }
       return typeList[type]
